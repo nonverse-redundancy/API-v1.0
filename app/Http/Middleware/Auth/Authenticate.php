@@ -17,7 +17,12 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        $opts = array('http' => array('header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"));
+        $opts = false;
+        try {
+            $opts = array('http' => array('header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"));
+        } catch (Exception $e) {
+            return redirect($request->url());
+        }
         $context = stream_context_create($opts);
 
         $location = env('AUTH_LOCATION') . '/api/user/logged';
