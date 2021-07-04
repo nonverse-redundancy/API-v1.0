@@ -31,8 +31,13 @@ class Authenticate
 
         try {
             $auth = json_decode(file_get_contents($location, false, $context), true);
-            $request->request->add(['uuid' => $auth['uuid']]);
+            //$request->request->add(['uuid' => $auth['uuid']]);
+            $request->session()->put('auth', $auth['uuid']);
+            $request->session()->regenerateToken();
         } catch (Exception $e) {
+            $request->session()->forget('auth');
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             return redirect(env('AUTH_LOCATION') . '/login?continue=' . $continue . '&resource=' . $resource);
         }
         return $next($request);
