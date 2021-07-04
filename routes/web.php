@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StatusController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [StatusController::class , 'display']);
+
+Route::get('/test/{id}', function(Request $request) {
+    return $request->session()->get('auth');
+})->middleware('auth', 'verify.owner');
