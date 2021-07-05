@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserDataController extends Controller
 {
@@ -36,7 +37,16 @@ class UserDataController extends Controller
      */
     public function show(Request $request, $id)
     {
-        return 'UUID: ' . $request->uuid;
+        if (User::where('uuid', $id)->exists()) {
+            $user = User::where('uuid', $id)->first();
+
+            return json_encode($user, JSON_PRETTY_PRINT);
+        } else {
+            $e = array(
+                'error' => 'User Not Found',
+            );
+            return response($e, 404);
+        }
     }
 
     /**
