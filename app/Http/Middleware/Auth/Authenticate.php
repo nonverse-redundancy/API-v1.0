@@ -25,7 +25,7 @@ class Authenticate
         }
         $context = stream_context_create($opts);
 
-        $location = env('AUTH_LOCATION') . '/api/user/logged';
+        $location = env('AUTH_LOCATION') . '/session/user/current';
         $continue = parse_url($request->url(), PHP_URL_HOST);
         $resource = substr(parse_url($request->url(), PHP_URL_PATH), 1);
 
