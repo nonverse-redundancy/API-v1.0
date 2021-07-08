@@ -58,7 +58,33 @@ class UserDataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $firstname = explode(' ', $request->name)[0];
+        $lastname = '';
+        if (explode(' ', $request->name)[1]) {
+            $lastname = explode(' ', $request->name)[1];
+        }
+
+        if (User::where('uuid', $id)->exists()) {
+            $user = User::where('uuid', $id)->first();
+
+            $user->name_first = $firstname;
+
+            $user->name_last = $lastname;
+
+            $query = $user->save();
+
+            if ($query) {
+                return response(200);
+            } else {
+                return response(500);
+            }
+        } else {
+            $e = array(
+                'error' => 'User Not Found',
+            );
+            return response($e, 404);
+        }
     }
 
     /**

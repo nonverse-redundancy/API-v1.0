@@ -20,5 +20,10 @@ Route::get('/', [StatusController::class , 'display']);
 
 // Protected Routes (Requires Login)
 Route::prefix('protected')->middleware('auth')->group(function () {
-    Route::get('/user/{id}', [UserDataController::class, 'show'])->middleware('verify.owner');
+
+    // Get
+    Route::get('/user/view/{id}', [UserDataController::class, 'show'])->middleware('verify.owner');
+
+    // Post
+    Route::post('/user/update/{id}', [UserDataController::class, 'update'])->middleware('verify.owner.strict');
 });
