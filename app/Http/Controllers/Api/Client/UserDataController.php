@@ -58,6 +58,21 @@ class UserDataController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = false;
+        if (User::where('uuid', $id)->exists()) {
+            $user = User::where('uuid', $id)->first();
+        } else {
+            $e = array(
+                'error' => 'User Not Found',
+            );
+            return response($e, 404);
+        }
+
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:users,username,'.$user->id,
+            'email' => 'required|unique:users,email,'.$user->id,
+        ]);
 
         $firstname = explode(' ', $request->name)[0];
         $lastname = '';
@@ -65,25 +80,16 @@ class UserDataController extends Controller
             $lastname = explode(' ', $request->name)[1];
         }
 
-        if (User::where('uuid', $id)->exists()) {
-            $user = User::where('uuid', $id)->first();
+        $user->name_first = $firstname;
+        $user->name_last = $lastname;
+        $user->email = $request->email;
 
-            $user->name_first = $firstname;
+        $query = $user->save();
 
-            $user->name_last = $lastname;
-
-            $query = $user->save();
-
-            if ($query) {
-                return response(200);
-            } else {
-                return response(500);
-            }
+        if ($query) {
+            return response(200);
         } else {
-            $e = array(
-                'error' => 'User Not Found',
-            );
-            return response($e, 404);
+            return response(500);
         }
     }
 
