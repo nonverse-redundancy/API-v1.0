@@ -5,6 +5,7 @@ namespace App\Http\Middleware\Auth;
 use Closure;
 use Illuminate\Http\Request;
 use \App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyOwnership
 {
@@ -18,17 +19,9 @@ class VerifyOwnership
     public function handle(Request $request, Closure $next)
     {
 
-        if (User::where('uuid', $request->session()->get('auth'))->exists()) {
-            $user = User::where('uuid', $request->session()->get('auth'))->first();
-            if ($user->admin) {
-                return $next($request);
-            } else {
-                if ($request->session()->get('auth') === $request->route('id')) {
-                    return $next($request);
-                }
-            }
-            return abort(401);
+        if (Auth::user()->admin || (Auth::user()->uuid === $request->route('id'))) {
+            return $next($request);
         }
-        
+        abort(401);
     }
 }

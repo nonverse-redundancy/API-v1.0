@@ -4,7 +4,7 @@ namespace App\Http\Middleware\Auth;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyOwnershipStrict
 {
@@ -17,12 +17,9 @@ class VerifyOwnershipStrict
      */
     public function handle(Request $request, Closure $next)
     {
-        if (User::where('uuid', $request->session()->get('auth'))->exists()) {
-            $user = User::where('uuid', $request->session()->get('auth'))->first();
-            if ($request->session()->get('auth') === $request->route('id')) {
-                return $next($request);
-            }
-            return abort(401);
+        if (Auth::user()->uuid === $request->route('id')) {
+            return $next($request);
         }
+        abort(401);
     }
 }

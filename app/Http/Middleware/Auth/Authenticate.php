@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware\Auth;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate
 {
@@ -31,15 +33,20 @@ class Authenticate
 
         try {
             $auth = json_decode(file_get_contents($location, false, $context), true);
-            //$request->request->add(['uuid' => $auth['uuid']]);
-            $request->session()->put('auth', $auth['uuid']);
+            if (User::where('uuid', $auth['uuid'])->exists()) {
+                $user = User::where('uuid', $auth['uuid'])->first();
+                Auth::loginUsingId($user->id);
+            }
             $request->session()->regenerateToken();
         } catch (Exception $e) {
-            $request->session()->forget('auth');
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
             return redirect(env('AUTH_LOCATION') . '/login?continue=' . $continue . '&resource=' . $resource);
         }
         return $next($request);
+    }
+
+    public function terminate(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
     }
 }

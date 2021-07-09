@@ -5,6 +5,7 @@ namespace App\Http\Middleware\Auth;
 use Closure;
 use Illuminate\Http\Request;
 use \App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyAdmin
 {
@@ -17,14 +18,9 @@ class VerifyAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (User::where('uuid', $request->session()->get('auth'))->exists()) {
-            $user = User::where('uuid', $request->session()->get('auth'))->first();
-
-            if ($user->admin) {
-                return $next($request);
-            }
-
-            abort(401);
+        if (Auth::user()->admin) {
+            return $next($request);
         }
+        abort(401);
     }
 }
