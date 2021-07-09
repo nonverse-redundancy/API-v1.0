@@ -16,12 +16,20 @@ class VerifyOwnership
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $access)
     {
-
-        if (Auth::user()->admin || (Auth::user()->uuid === $request->route('id'))) {
-            return $next($request);
+        
+        if ($access === 'withadmin') {
+            if (!Auth::user()->admin && (Auth::user()->uuid !== $request->route('id'))) {
+                return abort(401);
+            }
         }
-        abort(401);
+        if ($access === 'noadmin') {
+            if (Auth::user()->uuid !== $request->route('id')) {
+                return abort(401);
+            }
+        }
+
+        return $next($request);
     }
 }

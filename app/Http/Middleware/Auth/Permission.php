@@ -4,10 +4,9 @@ namespace App\Http\Middleware\Auth;
 
 use Closure;
 use Illuminate\Http\Request;
-use \App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class VerifyAdmin
+class Permission
 {
     /**
      * Handle an incoming request.
@@ -16,11 +15,11 @@ class VerifyAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (Auth::user()->admin) {
-            return $next($request);
+        if (!Auth::user()->$role) {
+            return abort(401);
         }
-        abort(401);
+        return $next($request);
     }
 }

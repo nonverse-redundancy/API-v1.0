@@ -22,8 +22,8 @@ Route::get('/', [StatusController::class , 'display']);
 Route::prefix('protected')->middleware('auth')->group(function () {
 
     // Get
-    Route::get('/user/view/{id}', [UserDataController::class, 'show'])->middleware('verify.owner');
+    Route::get('/user/view/{id}', [UserDataController::class, 'show'])->middleware('owner:withadmin');
 
     // Post
-    Route::post('/user/update/{id}', [UserDataController::class, 'update'])->middleware('verify.owner.strict');
+    Route::post('/user/update/{id}', [UserDataController::class, 'update'])->middleware('owner:noadmin');
 });
