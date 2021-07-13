@@ -10,9 +10,23 @@ class VerifyInput extends Controller
 {
     function email(Request $request) {
         
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users',
-        ]);
+        if ($request->has('args')) {
+            $args = $request->query('args');
+            if ($args === 'unique') {
+                $validator = Validator::make($request->all(), [
+                    'email' => 'required|email|unique:users',
+                ]);
+            } else {
+                $validator = Validator::make($request->all(), [
+                    'email' => 'required|email|',
+                ]);
+            }
+        } else {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|',
+            ]);
+        }
+
 
         if ($validator->fails()) {
             return $validator->errors()->first();
