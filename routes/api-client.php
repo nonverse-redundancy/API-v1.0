@@ -22,4 +22,5 @@ use Illuminate\Support\Facades\Route;
 // Validator
 Route::prefix('validator')->group(function () {
     Route::post('email', [VerifyInput::class, 'email']);
+    Route::post('phone', [VerifyInput::class, 'phone']);
 });

@@ -32,4 +32,14 @@ class VerifyInput extends Controller
             return $validator->errors()->first();
         }
     }
+
+    function phone(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->first();
+        }
+    }
 }
