@@ -69,10 +69,12 @@ class UserRecoveryController extends Controller
         }
 
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'email|nullable',
+            'phone' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|nullable',
         ]);
 
         $user->email = $request->email;
+        $user->phone = $request->phone;
 
         $query = $user->save();
 
