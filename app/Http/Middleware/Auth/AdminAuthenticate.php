@@ -4,9 +4,8 @@ namespace App\Http\Middleware\Auth;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class Permission
+class AdminAuthenticate
 {
     /**
      * Handle an incoming request.
@@ -15,10 +14,10 @@ class Permission
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user()->$role) {
-            return abort(401);
+        if (!$request->user()->admin) {
+            abort(403);
         }
         return $next($request);
     }
