@@ -35,18 +35,11 @@ class UserRecoveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        if (UserRecovery::where('uuid', $id)->exists()) {
-            $user = UserRecovery::where('uuid', $id)->first();
+        $user = UserRecovery::where('uuid', $request->user()->uuid)->first();
 
-            return json_encode($user, JSON_PRETTY_PRINT);
-        } else {
-            $e = array(
-                'error' => 'User Not Found,'
-            );
-            return response($e, 404);
-        }
+        return json_encode($user, JSON_PRETTY_PRINT);
     }
 
     /**
@@ -56,17 +49,9 @@ class UserRecoveryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = false;
-        if (UserRecovery::where('uuid', $id)->exists()) {
-            $user = UserRecovery::where('uuid', $id)->first();
-        } else {
-            $e = array(
-                'error' => 'User Not Found',
-            );
-            return response($e, 404);
-        }
+        $user = UserRecovery::where('uuid', $request->user()->uuid)->first();
 
         $request->validate([
             'email' => 'email|nullable',

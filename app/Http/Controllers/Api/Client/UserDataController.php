@@ -35,18 +35,10 @@ class UserDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request)
     {
-        if (User::where('uuid', $id)->exists()) {
-            $user = User::where('uuid', $id)->first();
-
-            return json_encode($user, JSON_PRETTY_PRINT);
-        } else {
-            $e = array(
-                'error' => 'User Not Found',
-            );
-            return response($e, 404);
-        }
+        $user = $request->user();
+        return json_encode($user, JSON_PRETTY_PRINT);
     }
 
     /**
@@ -56,17 +48,9 @@ class UserDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = false;
-        if (User::where('uuid', $id)->exists()) {
-            $user = User::where('uuid', $id)->first();
-        } else {
-            $e = array(
-                'error' => 'User Not Found',
-            );
-            return response($e, 404);
-        }
+        $user = $request->user();
 
         $request->validate([
             'name' => 'required',
