@@ -16,17 +16,3 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', [StatusController::class , 'display']);
-
-// Protected Routes (Requires Login)
-Route::prefix('protected')->middleware('auth')->group(function () {
-
-    // Get
-    Route::get('/user/{id}', [UserDataController::class, 'show'])->middleware('owner:withadmin');
-    Route::get('/user/{id}/recovery', [UserRecoveryController::class, 'show'])->middleware('owner:noadmin');
-
-    // Post
-    Route::post('/user/{id}', [UserDataController::class, 'update'])->middleware('owner:noadmin');
-    Route::post('/user/{id}/recovery', [UserRecoveryController::class, 'update'])->middleware('owner:noadmin');
-});
