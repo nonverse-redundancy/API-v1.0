@@ -58,6 +58,10 @@ class UserRecoveryController extends Controller
             'phone' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:10|nullable',
         ]);
 
+        if ($request->email === $request->user()->email) {
+            return response('Illegal Email', 400);
+        }
+
         $user->email = $request->email;
         $user->phone = $request->phone;
 
