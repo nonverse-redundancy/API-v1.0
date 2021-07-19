@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 
 class UserDataController extends Controller
 {
@@ -51,7 +50,6 @@ class UserDataController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
-
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username,'.$user->id,
@@ -64,9 +62,15 @@ class UserDataController extends Controller
             $lastname = explode(' ', $request->name)[1];
         }
 
+        $emailoriginal = $user->email;
+
         $user->name_first = $firstname;
         $user->name_last = $lastname;
         $user->email = $request->email;
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = NULL;
+        }
 
         $query = $user->save();
 
