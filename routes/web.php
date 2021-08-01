@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\Client\UserDataController;
-use App\Http\Controllers\Api\Client\UserRecoveryController;
 use App\Http\Controllers\StatusController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', [StatusController::class, 'display']);
