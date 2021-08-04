@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRecovery extends Model
 {
 
+    protected $connection = 'core';
     protected $table = 'user_recovery';
 
     use HasFactory;
