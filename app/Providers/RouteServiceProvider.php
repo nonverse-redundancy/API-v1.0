@@ -56,6 +56,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware(['web', 'auth', 'admin'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admin.php'));
+
+            Route::prefix('user/service/minecraft')
+                ->middleware(['web', 'auth', 'service:mc-java'])
+                ->namespace($this->namespace)
+                ->group(base_path('routes/service/minecraft.php'));
         });
     }
 
