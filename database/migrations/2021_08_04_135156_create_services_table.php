@@ -18,6 +18,7 @@ class CreateServicesTable extends Migration
             $table->string('uuid');
             $table->string('service_id');
             $table->tinyInteger('service_active');
+            $table->string('service_user');
             $table->timestamps();
         });
     }
