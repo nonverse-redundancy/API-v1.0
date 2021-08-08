@@ -21,9 +21,13 @@ class HasService
         $serviceid = $service . '.service';
 
         $userservicelist = Service::where('uuid', $user->uuid)->get();
-        $has = $userservicelist->whereIn('service_id', $serviceid);
+        $has = $userservicelist->whereIn('service_id', $serviceid)->first();
 
-        if ($has->isEmpty()) {
+        if (!$has) {
+            abort(401);
+        }
+
+        if (!$has->service_active) {
             abort(401);
         }
 
