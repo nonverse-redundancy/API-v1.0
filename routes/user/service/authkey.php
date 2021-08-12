@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 | User Minecraft Account Routes
 |--------------------------------------------------------------------------
 |
-| Endpoint: /user/service/authkey/
+| Endpoint: /user/services/authkey/
 |
 */
 
-Route::post('/initialize-new-key', [NewKeyController::class, 'initialize']);
+Route::post('/verify-minecraft-username', [NewKeyController::class, 'username']);
