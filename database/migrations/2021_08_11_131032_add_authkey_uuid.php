@@ -14,7 +14,7 @@ class AddAuthkeyUuid extends Migration
     public function up()
     {
         Schema::connection('services')->table('authme', function (Blueprint $table) {
-            $table->string('uuid')->after('id');
+            //$table->string('uuid')->after('id');
             $table->timestamps();
         });
     }
