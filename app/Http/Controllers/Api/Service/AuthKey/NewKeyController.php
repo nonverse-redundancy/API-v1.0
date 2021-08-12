@@ -42,12 +42,16 @@ class NewKeyController extends Controller
         $user = $request->user();
         $service = new Service();
         $key = new AuthKey();
+        $mcservice = Service::where('uuid', $user->uuid)->get()->whereIn('service_id', 'mc-java.service')->first();
         
         $service->uuid = $user->uuid;
         $service->service_id = "authme.service";
         $service->service_active = 1;
         $service->service_user = $request->username;
         $query1 = $service->save();
+
+        $mcservice->service_user = $request->username;
+        $query2 = $mcservice->save();
 
         //$key->uuid = $user->uuid;
         $key->username = strtolower($request->username);
@@ -56,6 +60,6 @@ class NewKeyController extends Controller
         $key->regdate = round(microtime(true) * 1000);
         $key->regip = $_SERVER['REMOTE_ADDR'];
         $key->email = $user->email;
-        $query2 = $key->save();
+        $query3 = $key->save();
     }
 }
