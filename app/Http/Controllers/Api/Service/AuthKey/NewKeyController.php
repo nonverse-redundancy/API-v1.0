@@ -17,13 +17,14 @@ class NewKeyController extends Controller
         $mojanguuidurl = 'https://api.mojang.com/users/profiles/minecraft/' . $request->username;
         $mcuuid = json_decode(file_get_contents($mojanguuidurl), true);
         $official = false;
-
+        $usernamecased = false;
         if ($mcuuid) {
             $official = true;
-
+            $usernamecased = $mcuuid['name'];
         }
         $response = array(
             "official" => $official,
+            "name" => $usernamecased,
         );
 
         return response($response, 200);
