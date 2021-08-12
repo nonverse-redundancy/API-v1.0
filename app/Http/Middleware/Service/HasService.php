@@ -17,6 +17,10 @@ class HasService
      */
     public function handle(Request $request, Closure $next, $service)
     {
+        if ($request->routeIs('setup.*')) {
+            return $next($request);
+        }
+
         $user = $request->user();
         $serviceid = $service . '.service';
 
