@@ -6,13 +6,17 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| User Minecraft Account Routes
+| User AuthKey Setup Routes (Ignores service middleware)
 |--------------------------------------------------------------------------
 |
-| Endpoint: /user/services/authkey/
+| Endpoint: /user/services/authkey/setup/*
 |
 */
-Route::prefix('setup')->group(function () {
+Route::prefix('setup')->name('setup.key')->group(function () {
     Route::post('/verify-minecraft-username', [NewKeyController::class, 'username']);
     Route::post('/generate-new-key', [NewKeyController::class, 'generate']);
+});
+
+Route::get('/details', function() {
+    return "Yipee";
 });
