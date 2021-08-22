@@ -29,7 +29,7 @@ class Authenticate
 
         $location = env('AUTH_LOCATION') . '/session/user/current';
         $continue = parse_url($request->url(), PHP_URL_HOST);
-        $resource = substr(parse_url($request->url(), PHP_URL_PATH), 1);
+        $resource = urlencode(substr(parse_url($request->url(), PHP_URL_PATH), 1));
 
         try {
             $auth = json_decode(file_get_contents($location, false, $context), true);
