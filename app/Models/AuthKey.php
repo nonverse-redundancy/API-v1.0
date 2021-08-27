@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class AuthKey extends Model
 {
+    use HasFactory;
+
     protected $connection = "services";
     protected $table = "authme";
-    use HasFactory;
+
+    protected $hidden = [
+        'totp',
+        'password',
+    ];
 }
