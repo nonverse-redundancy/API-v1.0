@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | Endpoint: /user/services/authkey/setup/*
 |
 */
-Route::prefix('setup')->name('setup.key')->group(function () {
+Route::prefix('setup')->name('setup.authkey')->group(function () {
     Route::post('/verify-minecraft-username', [AuthKeyController::class, 'verify']);
     Route::post('/generate-new-key', [AuthKeyController::class, 'store']);
 });
