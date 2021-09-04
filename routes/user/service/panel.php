@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\service\AuthKey\AuthKeyController;
+use App\Http\Controllers\Api\Service\Panel\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('setup')->name('setup.panel')->group(function () {
-    //
+    Route::get('/create-panel-user',[UserController::class, 'create']);
 });
 
 /*
