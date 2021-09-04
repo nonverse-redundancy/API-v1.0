@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Service;
+namespace App\Models\Service\Minecraft;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

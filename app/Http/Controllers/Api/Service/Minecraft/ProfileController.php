@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Service\Minecraft;
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
-use App\Models\Service\LuckpermsPlayer;
+use App\Models\Service\Service;
+use App\Models\Service\Minecraft\LuckpermsPlayer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

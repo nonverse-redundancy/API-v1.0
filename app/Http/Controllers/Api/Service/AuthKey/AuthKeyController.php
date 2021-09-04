@@ -4,8 +4,8 @@ namespace App\Http\Controllers\api\service\authkey;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\AuthKey;
-use App\Models\Service;
+use App\Models\Service\AuthKey;
+use App\Models\Service\Service;
 use Illuminate\Support\Facades\Hash;
 
 class AuthKeyController extends Controller
