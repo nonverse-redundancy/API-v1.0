@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('setup')->name('setup.panel')->group(function () {
-    Route::get('/create-panel-user',[UserController::class, 'create']);
+    Route::post('/create-panel-user',[UserController::class, 'create']);
 });
 
 /*
