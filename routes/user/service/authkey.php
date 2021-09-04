@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\api\service\AuthKey\AuthKeyController;
-use App\Http\Controllers\api\service\authkey\NewKeyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('setup')->name('setup.key')->group(function () {
-    Route::post('/verify-minecraft-username', [NewKeyController::class, 'username']);
-    Route::post('/generate-new-key', [NewKeyController::class, 'generate']);
+    Route::post('/verify-minecraft-username', [AuthKeyController::class, 'verify']);
+    Route::post('/generate-new-key', [AuthKeyController::class, 'store']);
 });
 
 /*
