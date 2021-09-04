@@ -65,6 +65,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(function() {
                     Route::prefix('/minecraft')->middleware('service:mc-java')->group(base_path('routes/user/service/minecraft.php')); // Minecraft
                     Route::prefix('/authkey')->middleware('service:authme')->group(base_path('routes/user/service/authkey.php')); // AuthKey
+                    Route::prefix('/panel')->middleware('service:panel')->group(base_path('routes/user/service/panel.php')); // Panel
                 });
 
             // Auth Protected Routes
