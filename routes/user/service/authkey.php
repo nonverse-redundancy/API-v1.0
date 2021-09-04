@@ -19,7 +19,7 @@ Route::prefix('setup')->name('setup.key')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| User AuthKey Setup Protected Routes
+| User AuthKey Protected Routes
 |--------------------------------------------------------------------------
 |
 | Endpoint: /user/services/authkey/
