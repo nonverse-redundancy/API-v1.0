@@ -1,7 +1,7 @@
 # Nonverse API v1.0
 This version of the Nonverse API was created whilst the network architecture was still being designed. It contained endpoints for a number of different services that were planned but have since been dropped.
 
-Since then Nonverse's main focus will be on creating a quality Minecraft server network and will **NOT** be offerering any other services as of the time of writing **[08-09-2021]**
+Since then Nonverse's main focus will be on creating a quality Minecraft server network and will **NOT** be offering any other services as of the time of writing **[08-09-2021]**
 
 - Version 1.0 of the Nonverse API is now fully deprecated and all development for it has been ceased as with all repository under the redundancy organization.  
 - Any requests to version 1.0 of the Nonverse API will be met with a HTTP error 500
